@@ -1,6 +1,4 @@
 <script>
-	import leftArrow from '$lib/assets/svgs/left_arrow.svg';
-
 	let loading = false;
 
 	async function onFileChange(event) {
@@ -42,7 +40,7 @@
 
 <section class="h-screen w-full flex flex-col items-center justify-center gap-8 text-center">
 	<a href="/" class="absolute top-6 left-6">
-		<img src={leftArrow} alt="Left arrow" class="w-10" />
+		<img src="/svgs/left_arrow.svg" alt="Left arrow" class="w-10" />
 	</a>
 	<h1 class="text-3xl font-bold">Remove your background !</h1>
 	<div class="relative h-50 w-50 rounded-xl border border-dashed border-gray-400 overflow-hidden">
