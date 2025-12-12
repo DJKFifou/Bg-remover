@@ -1,5 +1,3 @@
-import * as env from '$env/static/private';
-console.log(env);
 import { API_SECRET_KEY } from '$env/static/private';
 
 export async function POST({ request }) {
