@@ -28,7 +28,7 @@ export async function POST({ request }) {
 		body: apiForm
 	});
 
-	console.log('Réponse remove.bg :', response.status, response.statusText);
+	console.log('Réponse remove.bg :', response);
 
 	if (!response.ok) {
 		const err = await response.text();
@@ -37,7 +37,7 @@ export async function POST({ request }) {
 	}
 
 	const arrayBuffer = await response.arrayBuffer();
-	console.log('Image traitée reçue (arrayBuffer length)', arrayBuffer.byteLength);
+	console.log('Image traitée reçue (arrayBuffer length)', arrayBuffer);
 
 	return new Response(arrayBuffer, {
 		headers: {

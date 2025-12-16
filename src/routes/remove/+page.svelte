@@ -1,10 +1,12 @@
-<script>
-	let loading = false;
+<script lang="ts">
+	let loading: boolean = false;
+	let previewUploadUrl: string | null = null;
 
 	async function onFileChange(event) {
 		const file = event.target.files?.[0];
-
 		if (!file) return;
+
+		previewUploadUrl = URL.createObjectURL(file);
 
 		loading = true;
 
@@ -29,6 +31,12 @@
 			if (link) {
 				link.href = url;
 				link.classList.remove('hidden');
+			}
+
+			const previewDownloadLink = document.getElementById('preview-download');
+			if (previewDownloadLink) {
+				previewDownloadLink.src = url;
+				previewDownloadLink.classList.remove('hidden');
 			}
 		} catch (err) {
 			console.log(err);
@@ -55,6 +63,17 @@
 			Upload an image <br /> <span class="text-xs">(Max 22Mb)</span>
 		</h3>
 	</div>
+	{#if previewUploadUrl}
+		<div class="flex gap-4">
+			<img src={previewUploadUrl} alt="Uploaded preview" class="w-40 rounded-lg shadow" />
+			<img
+				id="preview-download"
+				src=""
+				alt="Uploaded preview"
+				class="hidden w-40 rounded-lg shadow"
+			/>
+		</div>
+	{/if}
 	<a id="download-link" href="/" download class="hidden text-blue-500 underline"
 		>Télécharger l'image</a
 	>
