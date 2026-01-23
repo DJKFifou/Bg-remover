@@ -55,12 +55,12 @@
 		<input
 			type="file"
 			accept=".jpg, .jpeg, .png, .webp"
-			size="22000"
+			size="512"
 			on:change={onFileChange}
 			class="absolute inset-0 h-full w-full bg-gray-100 hover:bg-gray-200 text-transparent hover:cursor-pointer"
 		/>
 		<h3 class="absolute top-1/2 left-1/2 -translate-1/2 pointer-events-none">
-			Upload an image <br /> <span class="text-xs">(Max 22Mb)</span>
+			Upload an image <br /> <span class="text-xs">(Max 512 Ko)</span>
 		</h3>
 	</div>
 	{#if previewUploadUrl}
