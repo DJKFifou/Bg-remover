@@ -1,13 +1,19 @@
 <script lang="ts">
 	let loading: boolean = false;
 	let previewUploadUrl: string | null = null;
+	let error: string | null = null;
 
 	async function onFileChange(event) {
 		const file = event.target.files?.[0];
 		if (!file) return;
 
-		previewUploadUrl = URL.createObjectURL(file);
+		if (file.size > 22 * 1024 * 1024) {
+			error = 'Fichier trop volumineux (max 22 Mo)';
+			return;
+		}
 
+		previewUploadUrl = URL.createObjectURL(file);
+		error = null;
 		loading = true;
 
 		const formData = new FormData();
@@ -20,6 +26,7 @@
 			});
 
 			if (!response.ok) {
+				error = response.status === 413 ? 'Fichier trop volumineux' : 'Erreur serveur';
 				loading = false;
 				return;
 			}
@@ -39,12 +46,18 @@
 				previewDownloadLink.classList.remove('hidden');
 			}
 		} catch (err) {
+			error = 'Erreur réseau';
 			console.log(err);
 		}
 
 		loading = false;
 	}
 </script>
+
+<!-- ... reste de ton code ... -->
+{#if error}
+	<p class="text-red-500">{error}</p>
+{/if}
 
 <section class="h-screen w-full flex flex-col items-center justify-center gap-8 text-center">
 	<a href="/" class="absolute top-6 left-6">
