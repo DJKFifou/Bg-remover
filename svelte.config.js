@@ -12,9 +12,7 @@ const config = {
 				host: '0.0.0.0',
 				port: process.env.PORT
 			},
-			node: {
-				bodySizeLimit: '22mb'
-			}
+			maxBodySize: 25 * 1024 * 1024
 		})
 	}
 };
