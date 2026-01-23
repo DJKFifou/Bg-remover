@@ -3,20 +3,21 @@ import { API_SECRET_KEY } from '$env/static/private';
 export async function POST({ request }) {
 	console.log('Requête reçue dans /api/remove-bg');
 
-	const formData = await request.formData();
-	console.log('FormData reçu :', formData);
+	// On récupère le body entier sans limite de SvelteKit
+	const arrayBuffer = await request.arrayBuffer();
+	const buffer = Buffer.from(arrayBuffer);
 
-	const image = formData.get('image');
-	console.log('Fichier image reçu :', image);
+	console.log('Taille du fichier reçu :', buffer.length);
 
-	if (!image) {
-		console.log('Aucun fichier envoyé');
+	if (!buffer.length) {
 		return new Response('No file uploaded', { status: 400 });
 	}
 
+	// Création d'un FormData compatible avec fetch API pour remove.bg
 	const apiForm = new FormData();
 	apiForm.append('size', 'auto');
-	apiForm.append('image_file', image);
+	// remove.bg attend un Blob ou File
+	apiForm.append('image_file', new Blob([buffer]));
 
 	console.log('Envoi à remove.bg…');
 
@@ -28,18 +29,14 @@ export async function POST({ request }) {
 		body: apiForm
 	});
 
-	console.log('Réponse remove.bg :', response);
-
 	if (!response.ok) {
 		const err = await response.text();
 		console.log('Erreur API remove.bg :', err);
 		return new Response('Error from API: ' + err, { status: 500 });
 	}
 
-	const arrayBuffer = await response.arrayBuffer();
-	console.log('Image traitée reçue (arrayBuffer length)', arrayBuffer);
-
-	return new Response(arrayBuffer, {
+	const resultArrayBuffer = await response.arrayBuffer();
+	return new Response(resultArrayBuffer, {
 		headers: {
 			'Content-Type': 'image/png'
 		}
