@@ -4,6 +4,6 @@
 	<a
 		href="/remove"
 		class="px-4 py-2 bg-black text-white border rounded-xl hover:bg-white hover:text-black"
-		>Remove</a
+		>Remove !</a
 	>
 </section>
