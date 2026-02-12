@@ -1,5 +1,6 @@
 <script lang="ts">
 	import BeforeAfterSlider from '$lib/components/BeforeAfterSlider.svelte';
+	import ExportOptions from '$lib/components/ExportOptions.svelte';
 	import loader from '$lib/assets/Loader.webm';
 
 	let loading: boolean = $state(false);
@@ -48,7 +49,6 @@
 	}
 </script>
 
-<!-- ... reste de ton code ... -->
 {#if error}
 	<p class="text-red-500">{error}</p>
 {/if}
@@ -70,14 +70,16 @@
 			Upload an image <br /> <span class="text-xs">(Max 512 Ko)</span>
 		</h3>
 	</div>
+
 	{#if previewUploadUrl && processedUrl}
-		<BeforeAfterSlider beforeSrc={previewUploadUrl} afterSrc={processedUrl} />
-		<a href={processedUrl} download="bg-removed.png" class="text-blue-500 underline">
-			Télécharger l'image
-		</a>
+		<div class="flex flex-col gap-4 items-center">
+			<BeforeAfterSlider beforeSrc={previewUploadUrl} afterSrc={processedUrl} />
+			<ExportOptions imageUrl={processedUrl} />
+		</div>
 	{:else if previewUploadUrl}
 		<img src={previewUploadUrl} alt="Uploaded preview" class="w-60 rounded-lg shadow" />
 	{/if}
+
 	{#if loading}
 		<video src={loader} autoplay loop muted playsinline></video>
 	{/if}
