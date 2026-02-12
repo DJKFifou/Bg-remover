@@ -1,12 +1,15 @@
 <script lang="ts">
 	import BeforeAfterSlider from '$lib/components/BeforeAfterSlider.svelte';
 	import ExportOptions from '$lib/components/ExportOptions.svelte';
+	import ProcessingHistory from '$lib/components/ProcessingHistory.svelte';
+	import { addToHistory } from '$lib/services/processingHistory';
 	import loader from '$lib/assets/Loader.webm';
 
 	let loading: boolean = $state(false);
 	let previewUploadUrl: string | null = $state(null);
 	let processedUrl: string | null = $state(null);
 	let error: string | null = $state(null);
+	let historyComponent: ProcessingHistory;
 
 	async function onFileChange(event: Event) {
 		const target = event.target as HTMLInputElement;
@@ -40,6 +43,10 @@
 
 			const blob = await response.blob();
 			processedUrl = URL.createObjectURL(blob);
+
+			// Add to history
+			await addToHistory(blob, file.name);
+			historyComponent?.refresh();
 		} catch (err) {
 			error = 'Erreur réseau';
 			console.log(err);
@@ -53,7 +60,7 @@
 	<p class="text-red-500">{error}</p>
 {/if}
 
-<section class="h-screen w-full flex flex-col items-center justify-center gap-8 text-center">
+<section class="min-h-screen w-full flex flex-col items-center justify-center gap-8 text-center py-16">
 	<a href="/" class="absolute top-6 left-6">
 		<img src="/svgs/left_arrow.svg" alt="Left arrow" class="w-10" />
 	</a>
@@ -83,4 +90,7 @@
 	{#if loading}
 		<video src={loader} autoplay loop muted playsinline></video>
 	{/if}
+
+	<!-- Processing History -->
+	<ProcessingHistory bind:this={historyComponent} />
 </section>
