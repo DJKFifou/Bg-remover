@@ -53,7 +53,7 @@
 
 <div
 	bind:this={containerRef}
-	class="before-after-slider"
+	class="relative w-full max-w-[500px] aspect-square overflow-hidden rounded-xl shadow-md cursor-ew-resize select-none"
 	role="slider"
 	aria-valuenow={sliderPosition}
 	aria-valuemin={0}
@@ -65,101 +65,57 @@
 		if (e.key === 'ArrowRight') sliderPosition = Math.min(100, sliderPosition + 5);
 	}}
 >
-	<img src={afterSrc} alt={afterAlt} class="after-image" draggable="false" />
+	<img
+		src={afterSrc}
+		alt={afterAlt}
+		class="absolute inset-0 w-full h-full object-contain bg-[repeating-conic-gradient(#e5e5e5_0%_25%,#fff_0%_50%)_50%/20px_20px]"
+		draggable="false"
+	/>
 
-	<div class="before-container" style="clip-path: inset(0 {100 - sliderPosition}% 0 0);">
-		<img src={beforeSrc} alt={beforeAlt} class="before-image" draggable="false" />
+	<div
+		class="absolute inset-0 w-full h-full"
+		style="clip-path: inset(0 {100 - sliderPosition}% 0 0);"
+	>
+		<img
+			src={beforeSrc}
+			alt={beforeAlt}
+			class="absolute inset-0 w-full h-full object-contain bg-[repeating-conic-gradient(#e5e5e5_0%_25%,#fff_0%_50%)_50%/20px_20px]"
+			draggable="false"
+		/>
 	</div>
 
 	<div
-		class="slider-handle"
+		class="absolute top-0 bottom-0 w-1 -translate-x-1/2 cursor-ew-resize"
 		style="left: {sliderPosition}%;"
 		onmousedown={handleMouseDown}
 		ontouchstart={handleMouseDown}
 		role="presentation"
 	>
-		<div class="slider-line"></div>
-		<div class="slider-button">
-			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+		<div
+			class="absolute top-0 bottom-0 left-1/2 w-0.5 bg-white -translate-x-1/2 shadow-[0_0_4px_rgba(0,0,0,0.3)]"
+		></div>
+
+		<div
+			class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg"
+		>
+			<svg
+				class="w-3.5 h-3.5 text-gray-500"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+			>
 				<polyline points="15 18 9 12 15 6"></polyline>
 			</svg>
-			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+			<svg
+				class="w-3.5 h-3.5 text-gray-500"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+			>
 				<polyline points="9 18 15 12 9 6"></polyline>
 			</svg>
 		</div>
 	</div>
 </div>
-
-<style>
-	.before-after-slider {
-		position: relative;
-		width: 100%;
-		max-width: 500px;
-		aspect-ratio: 1 / 1;
-		overflow: hidden;
-		border-radius: 0.75rem;
-		box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-		cursor: ew-resize;
-		user-select: none;
-	}
-
-	.after-image,
-	.before-image {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: contain;
-		background: repeating-conic-gradient(#e5e5e5 0% 25%, #fff 0% 50%) 50% / 20px 20px;
-	}
-
-	.before-container {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-	}
-
-	.slider-handle {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		width: 4px;
-		transform: translateX(-50%);
-		cursor: ew-resize;
-	}
-
-	.slider-line {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 50%;
-		width: 2px;
-		background: white;
-		transform: translateX(-50%);
-		box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-	}
-
-	.slider-button {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 40px;
-		height: 40px;
-		background: white;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-	}
-
-	.slider-button svg {
-		width: 14px;
-		height: 14px;
-		color: #666;
-	}
-</style>
