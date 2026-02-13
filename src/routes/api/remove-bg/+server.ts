@@ -1,5 +1,11 @@
 import { API_SECRET_KEY } from '$env/static/private';
 
+export const config = {
+	body: {
+		maxSize: '22mb'
+	}
+};
+
 export async function POST({ request }) {
 	const contentLength = request.headers.get('content-length');
 	const maxSize = 22 * 1024 * 1024; // 22 Mo
