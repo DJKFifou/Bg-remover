@@ -1,1 +1,15 @@
 @import 'tailwindcss';
+
+@keyframes arrow-converge {
+	0%,
+	100% {
+		transform: translateX(-15px);
+	}
+	50% {
+		transform: translateX(15px);
+	}
+}
+
+.animate-arrow-converge {
+	animation: arrow-converge 2s ease-in-out infinite;
+}

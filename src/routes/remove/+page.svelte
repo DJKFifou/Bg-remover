@@ -61,9 +61,9 @@
 {/if}
 
 <section
-	class="min-h-screen w-full flex flex-col items-center justify-center gap-8 text-center py-16"
+	class="min-h-[calc(100lvh-60px)] w-full flex flex-col items-center justify-center gap-8 text-center py-16"
 >
-	<a href="/" class="absolute top-6 left-6">
+	<a href="/" class="absolute top-25 left-5">
 		<img src="/svgs/left_arrow.svg" alt="Left arrow" class="w-10" />
 	</a>
 	<h1 class="text-3xl font-bold">Remove your background !</h1>

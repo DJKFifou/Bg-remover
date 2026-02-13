@@ -4,9 +4,16 @@
 		afterSrc: string;
 		beforeAlt?: string;
 		afterAlt?: string;
+		classes?: string;
 	}
 
-	let { beforeSrc, afterSrc, beforeAlt = 'Before', afterAlt = 'After' }: Props = $props();
+	let {
+		beforeSrc,
+		afterSrc,
+		beforeAlt = 'Before',
+		afterAlt = 'After',
+		classes = ''
+	}: Props = $props();
 
 	let sliderPosition = $state(50);
 	let isDragging = $state(false);
@@ -53,7 +60,7 @@
 
 <div
 	bind:this={containerRef}
-	class="relative w-full max-w-[500px] aspect-square overflow-hidden rounded-xl shadow-md cursor-ew-resize select-none"
+	class={`${classes} relative w-full max-w-[500px] aspect-square overflow-hidden rounded-xl shadow-md cursor-ew-resize select-none`}
 	role="slider"
 	aria-valuenow={sliderPosition}
 	aria-valuemin={0}
