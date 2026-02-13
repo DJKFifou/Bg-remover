@@ -60,7 +60,9 @@
 	<p class="text-red-500">{error}</p>
 {/if}
 
-<section class="min-h-screen w-full flex flex-col items-center justify-center gap-8 text-center py-16">
+<section
+	class="min-h-screen w-full flex flex-col items-center justify-center gap-8 text-center py-16"
+>
 	<a href="/" class="absolute top-6 left-6">
 		<img src="/svgs/left_arrow.svg" alt="Left arrow" class="w-10" />
 	</a>
@@ -69,12 +71,11 @@
 		<input
 			type="file"
 			accept=".jpg, .jpeg, .png, .webp"
-			size="512"
 			onchange={onFileChange}
 			class="absolute inset-0 h-full w-full bg-gray-100 hover:bg-gray-200 text-transparent hover:cursor-pointer"
 		/>
 		<h3 class="absolute top-1/2 left-1/2 -translate-1/2 pointer-events-none">
-			Upload an image <br /> <span class="text-xs">(Max 512 Ko)</span>
+			Upload an image <br /> <span class="text-xs">(Max 22MB)</span>
 		</h3>
 	</div>
 
